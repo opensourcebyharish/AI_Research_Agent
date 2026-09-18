@@ -9,3 +9,7 @@ __pycache__/
 .idea/
 data/index/
 *.log
+.coverage
+htmlcov/
+app/ui_backup.py
+data/documents.json
