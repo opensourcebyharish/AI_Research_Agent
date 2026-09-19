@@ -82,12 +82,12 @@ class LLMService:
             raise ValueError("prompt must not be empty")
 
         if self.provider == "gemini":
-            response = self.client.models.generate_content(
+            interaction = self.client.interactions.create(
                 model=self.model_name,
-                contents=prompt,
+                input=prompt,
             )
 
-            return (response.text or "").strip()
+            return (interaction.output_text or "").strip()
 
         response = ollama.chat(
             model=self.model_name,
