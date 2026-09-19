@@ -5,7 +5,7 @@ class RetrievalService:
         self,
         embedding_service,
         vector_store,
-        max_distance: float | None = 1.5,
+        max_distance: float | None = None,
     ):
         self.embedding_service = embedding_service
         self.vector_store = vector_store
@@ -22,6 +22,12 @@ class RetrievalService:
         FAISS uses L2 distance, so smaller distances indicate
         more similar vectors.
 
+        By default, the service returns the top-k FAISS results
+        without applying an arbitrary distance cutoff. A distance
+        cutoff can still be supplied explicitly through
+        max_distance when the embedding/index configuration has
+        been calibrated for one.
+
         Args:
             query: User's question.
             top_k: Maximum number of chunks to retrieve.
@@ -29,7 +35,6 @@ class RetrievalService:
         Returns:
             Relevant retrieval results.
         """
-
         if not query or not query.strip():
             return []
 
